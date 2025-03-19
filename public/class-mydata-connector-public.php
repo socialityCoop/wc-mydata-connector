@@ -141,7 +141,7 @@ class Mydata_Connector_Public {
 		//Get order items
 		$orderItems = $order->get_items();
 		//This filter can be used to alterate order items
-		$orderItems = apply_filters('mydata_connector_order_items', $orderItems);
+		$orderItems = apply_filters('mydata_connector_order_items',$orderItems,$plain_invoice_number);
 
 		//Add products in invoice
 		$rows = array();
