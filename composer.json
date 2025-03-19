@@ -1,0 +1,14 @@
+{
+    "name": "sociality/mydata-connector",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sociality",
+            "email": "contact@sociality.gr"
+        }
+    ],
+    "require": {
+        "firebed/aade-mydata": "^5.2",
+        "chillerlan/php-qrcode": "^5.0"
+    }
+}

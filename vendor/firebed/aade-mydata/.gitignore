@@ -1,0 +1,8 @@
+.idea
+/vendor/
+/node_modules/
+/src/TestInvoice.php
+kernel.php
+.phpunit.result.cache
+requested-doc.xml
+/.phpunit.cache/test-results
