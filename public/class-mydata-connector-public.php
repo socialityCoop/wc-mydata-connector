@@ -134,12 +134,13 @@ class Mydata_Connector_Public {
 
 		//Payment method
 		$payment = new PaymentMethodDetail();
-		$payment->setType(Mydata_Connector_Helper::mydata_connector_map_payment_method($order->get_payment_method()));
+		$payment_method = Mydata_Connector_Helper::mydata_connector_map_payment_method($order->get_payment_method());
+		$payment->setType($payment_method);
 		$payment->setAmount($order->get_total());
 		$payment->setPaymentMethodInfo($order->get_payment_method_title());
 
 		//Get order items
-		$orderItems = $order->get_items();
+		$orderItems = $order->get_items('tax');
 		//This filter can be used to alterate order items
 		$orderItems = apply_filters('mydata_connector_order_items',$orderItems,$plain_invoice_number);
 
@@ -152,11 +153,16 @@ class Mydata_Connector_Public {
 			$netValue = number_format((float)$orderItem['total'], 2, '.', '');
 			$vat = number_format((float)$orderItem['total_tax'], 2, '.', '');
 
+			//Get taxe rate
+			$tax_rate_id  = $orderItem->get_rate_id(); 
+			$tax_percent = WC_Tax::get_rate_percent( $tax_rate_id );
+			$vat_category = Mydata_Connector_Helper::mydata_connector_map_vat_category($tax_percent);
+
 			//Add to invoice
 			$row = new InvoiceDetails();
 			$row->setLineNumber($i);
 			$row->setNetValue($netValue);
-			$row->setVatCategory(Mydata_Connector_Helper::mydata_connector_map_vat_category($orderItem['tax_class']));
+			$row->setVatCategory($vat_category);
 			$row->setVatAmount($vat);
 			$row->addIncomeClassification(
 				IncomeClassificationType::E3_561_003,
