@@ -77,15 +77,33 @@ class Mydata_Connector_Helper {
 		$payment_methods_mapped = array();
 		foreach ($payment_methods as $key => $value) {
 			switch ($value) {
-				case 'METHOD_7':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_7;
-					break;
+				case 'METHOD_1':
+					$tax_classes_mapped[$key] = PaymentMethod::METHOD_1;
+				break;
+				case 'METHOD_2':
+					$tax_classes_mapped[$key] = PaymentMethod::METHOD_2;
+				break;
+				case 'METHOD_3':
+					$tax_classes_mapped[$key] = PaymentMethod::METHOD_3;
+				break;
+				case 'METHOD_4':
+					$tax_classes_mapped[$key] = PaymentMethod::METHOD_4;
+				break;
+				case 'METHOD_5':
+					$tax_classes_mapped[$key] = PaymentMethod::METHOD_5;
+				break;
 				case 'METHOD_6':
 					$tax_classes_mapped[$key] = PaymentMethod::METHOD_6;
-					break;
+				break;
+				case 'METHOD_7':
+					$tax_classes_mapped[$key] = PaymentMethod::METHOD_7;
+				break;
+				case 'METHOD_8':
+					$tax_classes_mapped[$key] = PaymentMethod::METHOD_8;
+				break;
 				default:
 					$tax_classes_mapped[$key] = PaymentMethod::METHOD_3;
-					break;
+				break;
 			}
 		}
 
@@ -123,17 +141,17 @@ class Mydata_Connector_Helper {
 		foreach ($tax_classes as $key => $value) {
 			switch ($value) {
 				case 'VAT_1':
-					$tax_classes_mapped[$key] = VatCategory::VAT_1;
-					break;
+				$tax_classes_mapped[$key] = VatCategory::VAT_1;
+				break;
 				case 'VAT_2':
-					$tax_classes_mapped[$key] = VatCategory::VAT_2;
-					break;
+				$tax_classes_mapped[$key] = VatCategory::VAT_2;
+				break;
 				case 'VAT_3':
-					$tax_classes_mapped[$key] = VatCategory::VAT_3;
-					break;
+				$tax_classes_mapped[$key] = VatCategory::VAT_3;
+				break;
 				default:
-					$tax_classes_mapped[$key] = VatCategory::VAT_1;
-					break;
+				$tax_classes_mapped[$key] = VatCategory::VAT_1;
+				break;
 			}
 		}
 
