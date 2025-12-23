@@ -39,6 +39,11 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'MYDATA_CONNECTOR_VERSION', '1.0.0' );
 
 /**
+ * Main plugin file
+ */
+define( 'WC_MYDATA_CONNECTOR_FILE', __FILE__ );
+
+/**
  * This code adds composer depedentecies
  */
 require_once(plugin_dir_path(__FILE__) . '/vendor/autoload.php');
@@ -69,6 +74,16 @@ register_deactivation_hook( __FILE__, 'deactivate_mydata_connector' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-mydata-connector.php';
+
+
+//Add plugin setting page in archive plugin view (Temporary position)
+function add_plugin_options_page_url($actions) {
+		$mylinks = array(
+		'<a href="'.admin_url('options-general.php?page=mydata-connector-admin').'">'.__('Settings','mydata-connector').'</a>');
+		$actions = array_merge( $actions, $mylinks );
+		return $actions;
+}
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_plugin_options_page_url');
 
 /**
  * Begins execution of the plugin.

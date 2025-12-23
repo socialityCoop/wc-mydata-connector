@@ -128,6 +128,23 @@ class Mydata_Connector_Admin {
 		//Production settings
 
 		add_settings_field(
+			'mydata_active_transmittion', 
+			__('Actively transmitting','mydata-connector'), 
+			array( $this, 'active_transmittion_callback' ), 
+			'mydata-connector-admin', 
+			'mydata-connector-section'
+		); 
+
+		add_settings_field(
+			'mydata_invoice_type', 
+			__('Receipt Type','mydata-connector'), 
+			array( $this, 'invoice_type_callback' ), 
+			'mydata-connector-admin', 
+			'mydata-connector-section'
+		); 
+
+
+		add_settings_field(
 			'mydata_prod_user', 
 			__('MyData User ID','mydata-connector'), 
 			array( $this, 'prod_user_callback' ), 
@@ -217,6 +234,34 @@ class Mydata_Connector_Admin {
      *
      * @since    1.0.0
      */
+
+    public function active_transmittion_callback()
+    { ?>
+    	<input type="checkbox" id="mydata_active_transmittion" name="mydata_connector_options[mydata_active_transmittion]" value="1"
+    	<?php isset( $this->options['mydata_active_transmittion'] ) ? checked('1',$this->options['mydata_active_transmittion']) : ''; ?>
+    	/> 
+    	<?php
+    }
+
+    public function invoice_type_callback()
+    { 
+
+    	$select_value = isset($this->options['invoice_type']) ? $this->options['invoice_type'] : '';
+    	$choices = array(
+    		'TYPE_11_1' => __('Retail receipt','mydata-connector'),
+    		'TYPE_11_2' => __('Receipt of rendered services','mydata-connector'),
+    	); ?>
+
+    	<select name="mydata_connector_options[invoice_type]">
+    		<?php 
+    		foreach ($choices as $value => $label) {
+    			$selected = selected($select_value, $value, false);
+    			echo "<option value='" . esc_attr($value) . "' $selected>" . esc_html($label) . "</option>";
+    		} ?> 
+    	</select>
+    	<?php
+    }
+
 
     public function prod_user_callback()
     {
