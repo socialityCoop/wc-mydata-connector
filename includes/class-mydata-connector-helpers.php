@@ -14,6 +14,7 @@
 use Firebed\AadeMyData\Http\MyDataRequest;
 use Firebed\AadeMyData\Enums\PaymentMethod;
 use Firebed\AadeMyData\Enums\VatCategory;
+use Firebed\AadeMyData\Enums\InvoiceType;
 
 /**
  * Used by main public class as helper function
@@ -78,31 +79,31 @@ class Mydata_Connector_Helper {
 		foreach ($payment_methods as $key => $value) {
 			switch ($value) {
 				case 'METHOD_1':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_1;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_1;
 				break;
 				case 'METHOD_2':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_2;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_2;
 				break;
 				case 'METHOD_3':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_3;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_3;
 				break;
 				case 'METHOD_4':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_4;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_4;
 				break;
 				case 'METHOD_5':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_5;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_5;
 				break;
 				case 'METHOD_6':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_6;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_6;
 				break;
 				case 'METHOD_7':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_7;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_7;
 				break;
 				case 'METHOD_8':
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_8;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_8;
 				break;
 				default:
-					$tax_classes_mapped[$key] = PaymentMethod::METHOD_3;
+				$payment_methods_mapped[$key] = PaymentMethod::METHOD_3;
 				break;
 			}
 		}
@@ -162,6 +163,67 @@ class Mydata_Connector_Helper {
         	//Fallback
 			return VatCategory::VAT_1;
 		}
+	}
+
+
+	/**
+	 * Asset function to map invoice type
+	 * 
+	 * @since    1.0.0
+	 * @return array with Label and InvoiceType. See more here https://docs.invoicemaker.gr/appendix/invoice-types
+	 */
+	public static function mydata_connector_map_invoice_type()
+	{	
+
+		//Available Types
+		$invoice_types = array(
+			'TYPE_11_1' => array(
+				'label' => __('Retail receipt','mydata-connector'),
+			),
+			'TYPE_11_2' => array(
+				'label' =>__('Receipt of rendered services','mydata-connector'),
+			),
+			'TYPE_11_3' => array(
+				'label' => __('Simplified Invoice','mydata-connector'),
+			),
+			'TYPE_11_4' => array(
+				'label' => __('Retail Credit Note','mydata-connector'),
+			)
+		);
+
+		//This filter can be used to enrich invoice type mapping
+		$invoice_types = apply_filters('mydata_connector_invoice_types', $invoice_types);
+
+		//Map to invoice maker library
+		foreach ($invoice_types as $key => $value) {
+			switch ($key) {
+				case 'TYPE_11_1':
+				$invoice_types[$key]['object'] = InvoiceType::TYPE_11_1;
+				break;
+				case 'TYPE_11_2':
+				$invoice_types[$key]['object'] = InvoiceType::TYPE_11_2;
+				break;
+				case 'TYPE_11_3':
+				$invoice_types[$key]['object'] = InvoiceType::TYPE_11_3;
+				break;
+				case 'TYPE_11_4':
+				$invoice_types[$key]['object'] = InvoiceType::TYPE_11_4;
+				break;
+				default:
+				$tax_classes_mapped[$key]['object'] = InvoiceType::TYPE_11_2;
+				break;
+			}
+		}
+
+		//Find invoice type in options
+		$stored_options = get_option( 'mydata_connector_options');
+		if(isset($stored_options['invoice_type'])){
+			return $invoice_types[$stored_options['invoice_type']];
+		}else{
+			//Fallback
+			return InvoiceType::TYPE_11_2;
+		}
+
 	}
 
 }

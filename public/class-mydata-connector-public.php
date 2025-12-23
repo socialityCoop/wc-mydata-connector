@@ -138,7 +138,8 @@ class Mydata_Connector_Public {
 		$header->setSeries($invoice_series);
 		$header->setAa($plain_invoice_number);
 		$header->setIssueDate(date('Y-m-d'));
-		$header->setInvoiceType(InvoiceType::TYPE_11_2);
+		$mydata_invoice_type = Mydata_Connector_Helper::mydata_connector_map_invoice_type();
+		$header->setInvoiceType($mydata_invoice_type['object']);
 		$header->setCurrency('EUR');
 
 		//Payment method
@@ -268,7 +269,8 @@ class Mydata_Connector_Public {
 	 */
 	public  function mydata_connector_change_title( $title, $document ) {
 		if ( 'invoice' === $document->get_type() ) {
-			$title = apply_filters('mydata_connector_invoice_title', 'ΑΠΟΔΕΙΞΗ ΛΙΑΝΙΚΗΣ ΠΩΛΗΣΗΣ');	
+			$mydata_invoice_type = Mydata_Connector_Helper::mydata_connector_map_invoice_type();
+			$title = $mydata_invoice_type['label'];
 		}
 		return $title;
 	}
