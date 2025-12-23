@@ -239,7 +239,7 @@ class Mydata_Connector_Public {
 		$mark = get_post_meta($order->get_id(), 'mydata_gr_mark', true);
 		if($mark){
 			echo '<tr class="mark"><th>';
-			_e( 'MARK:', 'woocommerce-pdf-invoices-packing-slips' );
+			_e( 'MAΡK:', 'woocommerce-pdf-invoices-packing-slips' );
 			echo '</th><td>'.$mark.'</td></tr>';
 		}
 
