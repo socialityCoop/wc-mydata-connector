@@ -108,8 +108,8 @@ class Mydata_Connector_Helper {
 		}
 
     	//Send payment method
-		if($payment_methods[$wc_payment_method]){
-			return $payment_methods[$wc_payment_method];
+		if($payment_methods_mapped[$wc_payment_method]){
+			return $payment_methods_mapped[$wc_payment_method];
 		}else{
         	//Fallback
 			return PaymentMethod::METHOD_3;
