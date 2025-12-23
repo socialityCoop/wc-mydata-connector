@@ -128,6 +128,15 @@ class Mydata_Connector_Admin {
 		//Production settings
 
 		add_settings_field(
+			'mydata_active_transmittion', 
+			__('Actively transmitting','mydata-connector'), 
+			array( $this, 'active_transmittion_callback' ), 
+			'mydata-connector-admin', 
+			'mydata-connector-section'
+		); 
+
+
+		add_settings_field(
 			'mydata_prod_user', 
 			__('MyData User ID','mydata-connector'), 
 			array( $this, 'prod_user_callback' ), 
@@ -217,6 +226,15 @@ class Mydata_Connector_Admin {
      *
      * @since    1.0.0
      */
+
+    public function active_transmittion_callback()
+    { ?>
+    	<input type="checkbox" id="mydata_active_transmittion" name="mydata_connector_options[mydata_active_transmittion]" value="1"
+    	<?php isset( $this->options['mydata_active_transmittion'] ) ? checked('1',$this->options['mydata_active_transmittion']) : ''; ?>
+    	/> 
+    	<?php
+    }
+
 
     public function prod_user_callback()
     {

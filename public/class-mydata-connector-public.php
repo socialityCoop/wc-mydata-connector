@@ -89,6 +89,16 @@ class Mydata_Connector_Public {
 	 */
 	public function mydata_connector_send_invoice($type, $order) {
 
+		//Get options
+		$stored_options = get_option( 'mydata_connector_options');
+
+		//Check if actively transmitting		
+		if(isset($stored_options['mydata_active_transmittion'])&&$stored_options['mydata_active_transmittion']==1){
+			//Continue
+		}else{
+			return;
+		}
+
 		//Check if the invoice has been already sent
 		$transmitted = get_post_meta($order->get_id(), 'mydata_gr_transmitted', true);
 		if ($transmitted) {
@@ -104,7 +114,6 @@ class Mydata_Connector_Public {
 		$invoice_series = str_replace($plain_invoice_number, "", $invoice_number);
 
 		//Check invoice number limit		
-		$stored_options = get_option( 'mydata_connector_options');
 		$invoice_number_limit = $stored_options['mydata_invoice_limit'];
 		if(isset($invoice_number_limit)&&$invoice_number_limit>$plain_invoice_number){
 			return;
