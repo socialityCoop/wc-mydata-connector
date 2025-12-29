@@ -15,6 +15,8 @@ use Firebed\AadeMyData\Http\MyDataRequest;
 use Firebed\AadeMyData\Enums\PaymentMethod;
 use Firebed\AadeMyData\Enums\VatCategory;
 use Firebed\AadeMyData\Enums\InvoiceType;
+use Firebed\AadeMyData\Enums\IncomeClassificationType;
+use Firebed\AadeMyData\Enums\IncomeClassificationCategory;
 
 /**
  * Used by main public class as helper function
@@ -48,6 +50,11 @@ class Mydata_Connector_Helper {
 		}
 
 		MyDataRequest::init($user_id, $subscription_key, $env);
+
+		//Disable SSL check for dev env
+		if($env == "dev"){
+			MyDataRequest::verifyClient(false);
+		}
 	}
 
 	/**
@@ -131,7 +138,11 @@ class Mydata_Connector_Helper {
 		$tax_classes = array(
 			'24%' => 'VAT_1',
 			'13%'=> 'VAT_2',
-			'6%' =>'VAT_3'
+			'6%' =>'VAT_3',
+			'17%' =>'VAT_4',
+			'9%' =>'VAT_5',
+			'4%' =>'VAT_6',
+			'0%' =>'VAT_7'
 		);
 
 		//This filter can be used to enrich tax classes mapping
@@ -149,6 +160,18 @@ class Mydata_Connector_Helper {
 				break;
 				case 'VAT_3':
 				$tax_classes_mapped[$key] = VatCategory::VAT_3;
+				break;
+				case 'VAT_4':
+				$tax_classes_mapped[$key] = VatCategory::VAT_4;
+				break;
+				case 'VAT_5':
+				$tax_classes_mapped[$key] = VatCategory::VAT_5;
+				break;
+				case 'VAT_6':
+				$tax_classes_mapped[$key] = VatCategory::VAT_6;
+				break;
+				case 'VAT_7':
+				$tax_classes_mapped[$key] = VatCategory::VAT_7;
 				break;
 				default:
 				$tax_classes_mapped[$key] = VatCategory::VAT_1;
@@ -221,9 +244,106 @@ class Mydata_Connector_Helper {
 			return $invoice_types[$stored_options['invoice_type']];
 		}else{
 			//Fallback
-			return InvoiceType::TYPE_11_2;
+			return InvoiceType::TYPE_11_1;
 		}
 
+	}
+
+	/**
+	 * Asset function to map IncomeClassification
+	 * 
+	 * @param $orderItem object
+	 * @since  1.0.0
+	 * @return array with IncomeClassificationType and IncomeClassificationCategory. See more here https://docs.invoicemaker.gr/appendix/income-classifications
+	 */
+	public static function mydata_connector_map_income_classification($orderItem)
+	{	
+
+		$income_classification = array();
+
+		/* Categories */
+
+		//Available Categories
+		$income_classification_categories = array(
+			'physical' => 'category1_2', //For products
+			'virtual' => 'category1_3', //For services
+			'default' => 'category1_1' //Default
+		);
+
+		//This filter can be used to enrich invoice category mapping
+		$income_classification_categories = apply_filters('mydata_connector_income_classification_categories', $income_classification_categories);
+
+		//Map to invoice maker library
+		$income_classification_categories_mapped = array();
+		foreach ($income_classification_categories as $key => $value) {
+			switch ($value) {
+				case 'category1_1':
+				$income_classification_categories_mapped[$key] = IncomeClassificationCategory::CATEGORY_1_1;
+				break;
+				case 'category1_2':
+				$income_classification_categories_mapped[$key] = IncomeClassificationCategory::CATEGORY_1_2;
+				break;
+				case 'category1_3':
+				$income_classification_categories_mapped[$key] = IncomeClassificationCategory::CATEGORY_1_3;
+				break;
+			}
+		}
+
+		//Set category
+		$stored_options = get_option( 'mydata_connector_options');
+		//Check invoice type
+		if(isset($stored_options['invoice_type'])&&$stored_options['invoice_type']=='TYPE_11_2'){
+			//Set for services by default in that case (nothing else is allowed by myData)
+			$income_classification['category'] = IncomeClassificationCategory::CATEGORY_1_3;
+		}else{
+			//Check product type
+			$orderProduct = wc_get_product($orderItem->get_product_id());
+			$virtual = $orderProduct->is_virtual();
+			if($virtual==true){
+				$income_classification['category'] = $income_classification_categories_mapped['virtual']; 
+			}elseif($virtual==false) {
+				$income_classification['category'] = $income_classification_categories_mapped['physical']; 
+			}else{
+				$income_classification['category'] = $income_classification_categories_mapped['default']; 
+			}
+		}
+		
+		/* Types */
+
+		//Available Types
+		$income_classification_types = array(
+			'default' => 'E3_561_003' //Default
+		);
+
+		//This filter can be used to enrich invoice type mapping
+		$income_classification_types = apply_filters('mydata_connector_income_classification_categories', $income_classification_types);
+
+		//Map to invoice maker library
+		$income_classification_types_mapped = array();
+		foreach ($income_classification_types as $key => $value) {
+			switch ($value) {
+				case 'E3_561_003':
+				$income_classification_types_mapped[$key] = IncomeClassificationType::E3_561_003;
+				break;
+				case 'E3_561_004':
+				$income_classification_types_mapped[$key] = IncomeClassificationType::E3_561_004;
+				break;
+				case 'E3_561_005':
+				$income_classification_types_mapped[$key] = IncomeClassificationType::E3_561_005;
+				break;
+				case 'E3_561_006':
+				$income_classification_types_mapped[$key] = IncomeClassificationType::E3_561_006;
+				break;
+				case 'E3_561_007':
+				$income_classification_types_mapped[$key] = IncomeClassificationType::E3_561_007;
+				break;
+			}
+		}
+
+		//Set type
+		$income_classification['type'] =  $income_classification_types_mapped['default'];
+
+		return $income_classification;
 	}
 
 }
