@@ -13,7 +13,7 @@
 
 /**
  * Load depedencies
- *
+ * 
  * */
 
 //Basic
@@ -150,7 +150,7 @@ class Mydata_Connector_Public {
 		$payment->setPaymentMethodInfo($order->get_payment_method_title());
 
 		//Get order items
-		$orderItems = $order->get_items('tax');
+		$orderItems = $order->get_items();
 		//This filter can be used to alterate order items
 		$orderItems = apply_filters('mydata_connector_order_items',$orderItems,$plain_invoice_number);
 
@@ -164,9 +164,13 @@ class Mydata_Connector_Public {
 			$vat = number_format((float)$orderItem['total_tax'], 2, '.', '');
 
 			//Get taxe rate
-			$tax_rate_id  = $orderItem->get_rate_id(); 
+			$taxes = $orderItem->get_taxes();
+			$tax_rate_id  = reset(array_keys($taxes['total'])); 
 			$tax_percent = WC_Tax::get_rate_percent( $tax_rate_id );
 			$vat_category = Mydata_Connector_Helper::mydata_connector_map_vat_category($tax_percent);
+			
+			//Get income classification category & type
+			$income_classification = Mydata_Connector_Helper::mydata_connector_map_income_classification($orderItem);
 
 			//Add to invoice
 			$row = new InvoiceDetails();
@@ -175,8 +179,8 @@ class Mydata_Connector_Public {
 			$row->setVatCategory($vat_category);
 			$row->setVatAmount($vat);
 			$row->addIncomeClassification(
-				IncomeClassificationType::E3_561_003,
-				IncomeClassificationCategory::CATEGORY_1_3,
+				$income_classification['type'],
+				$income_classification['category'],
 				$netValue
 			);
 			array_push($rows, $row);
