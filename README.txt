@@ -1,7 +1,7 @@
-=== Plugin Name ===
+=== MyData Connector for WooCommerce ===
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://sociality.gr/
-Tags: comments, spam
+Tags: woocommerce, payments
 Requires at least: 3.0.1
 Tested up to: 3.4
 Stable tag: 4.3
