@@ -14,13 +14,13 @@
  *
  * @wordpress-plugin
  * Plugin Name:       MyData Connector for WooCommerce
- * Plugin URI:        https://sociality.gr/wc-mydata-connector
+ * Plugin URI:        https://github.com/socialityCoop/wc-mydata-connector
  * Description:       A plugin that integrates PDF Invoices & Packing Slips for WooCommerce with myData greek tax system
  * Version:           1.0.0
  * Author:            Sociality Coop
  * Author URI:        https://sociality.gr/
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       mydata-connector
  * Domain Path:       /languages
  * Requires Plugins: woocommerce-pdf-invoices-packing-slips
