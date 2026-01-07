@@ -316,7 +316,7 @@ class Mydata_Connector_Helper {
 		);
 
 		//This filter can be used to enrich invoice type mapping
-		$income_classification_types = apply_filters('mydata_connector_income_classification_categories', $income_classification_types);
+		$income_classification_types = apply_filters('mydata_connector_income_classification_types', $income_classification_types);
 
 		//Map to invoice maker library
 		$income_classification_types_mapped = array();
