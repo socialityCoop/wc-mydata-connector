@@ -254,7 +254,7 @@ class Mydata_Connector_Helper {
 	 * 
 	 * @param $orderItem object
 	 * @since  1.0.0
-	 * @return array with IncomeClassificationType and IncomeClassificationCategory. See more here https://docs.invoicemaker.gr/appendix/income-classifications
+	 * @return array with IncomeClassificationType and IncomeClassificationCategory. See more here https://docs.invoicemaker.gr/appendix/income-classifications and here https://www.aade.gr/sites/default/files/2022-01/syndiasm_charaktitistik_v1.0.4.xls
 	 */
 	public static function mydata_connector_map_income_classification($orderItem)
 	{	
@@ -316,7 +316,7 @@ class Mydata_Connector_Helper {
 		);
 
 		//This filter can be used to enrich invoice type mapping
-		$income_classification_types = apply_filters('mydata_connector_income_classification_categories', $income_classification_types);
+		$income_classification_types = apply_filters('mydata_connector_income_classification_types', $income_classification_types);
 
 		//Map to invoice maker library
 		$income_classification_types_mapped = array();
