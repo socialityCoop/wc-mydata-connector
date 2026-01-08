@@ -15,7 +15,7 @@ To use this plugin you need [PDF Invoices &amp; Packing Slips](https://wordpress
 
 ## Instalation
 
-Download this repository as a zip fild and upload it to your WordPress instalation as you would do with any other WP plugin.
+Download this repository as a zip file and upload it to your WordPress instalation as you would do with any other WP plugin.
 
 You will need to configure myData Connector:
 
@@ -32,7 +32,7 @@ You will also need to configure the PDF Invoices &amp; Packing Slips for WooComm
 5. Choose to display invoice number and invoice date on the receipt.
 6. Add a Prefix. This will used as the receipt series. It's is essential and will be provided by your accountant.
 
-You are ready to go! Start sending receipt to myData by enabling transmission in the plugin's settings.
+You are ready to go! Start sending receipts to myData by enabling transmission in the plugin's settings.
 
 ## Extension
 
