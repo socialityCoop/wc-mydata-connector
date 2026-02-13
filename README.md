@@ -42,7 +42,7 @@ A number of filters have been established in order for you to extend this plugin
 
 Use filter `mydata_connector_payment_methods` to map Payment Methods. Each payment method enabled in WooCommerce needs to be mapped to myData payment methods. 
 
-We use the WC payment method ID as provided in the URL `yourwebiste.com/wp-admin/admin.php?page=wc-settings&tab=checkout&section=ID` and the payment methods type set by [invoicemaker.gr](ttps://docs.invoicemaker.gr/appendix/payment-methods) to set the mapping. 
+We use the WC payment method ID as provided in the URL `yourwebiste.com/wp-admin/admin.php?page=wc-settings&tab=checkout&section=ID` and the payment methods type set by [invoicemaker.gr](https://docs.invoicemaker.gr/appendix/payment-methods) to set the mapping. 
 
 Example: `'bacs' =>  'METHOD_6'`
 
