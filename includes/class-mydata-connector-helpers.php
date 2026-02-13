@@ -86,22 +86,22 @@ class Mydata_Connector_Helper {
 		foreach ($payment_methods as $key => $value) {
 			switch ($value) {
 				case 'METHOD_1':
-				$payment_methods_mapped[$key] = PaymentMethod::METHOD_1;
+				$payment_methods_mapped['nbg_gp_gateway'] = PaymentMethod::METHOD_1;
 				break;
 				case 'METHOD_2':
-				$payment_methods_mapped[$key] = PaymentMethod::METHOD_2;
+				$payment_methods_mapped['piraeusbank_gateway'] = PaymentMethod::METHOD_2;
 				break;
 				case 'METHOD_3':
-				$payment_methods_mapped[$key] = PaymentMethod::METHOD_3;
+				$payment_methods_mapped['stripe'] = PaymentMethod::METHOD_3;
 				break;
 				case 'METHOD_4':
-				$payment_methods_mapped[$key] = PaymentMethod::METHOD_4;
+				$payment_methods_mapped['ppcp-gateway'] = PaymentMethod::METHOD_4;
 				break;
 				case 'METHOD_5':
-				$payment_methods_mapped[$key] = PaymentMethod::METHOD_5;
+				$payment_methods_mapped['vivacom_smart'] = PaymentMethod::METHOD_5;
 				break;
 				case 'METHOD_6':
-				$payment_methods_mapped[$key] = PaymentMethod::METHOD_6;
+				$payment_methods_mapped['alphabank_gateway'] = PaymentMethod::METHOD_6;
 				break;
 				case 'METHOD_7':
 				$payment_methods_mapped[$key] = PaymentMethod::METHOD_7;
