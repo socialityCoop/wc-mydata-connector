@@ -69,13 +69,20 @@ class Mydata_Connector_Helper {
 
 		//Payment method mapping
 		$payment_methods = array(
-			'vivawallet_native' => 'METHOD_7',
-			'paypal' => 'METHOD_7',
+			//Web Banking	
 			'bacs' =>  'METHOD_6',
 			'bank_transfer_1' =>  'METHOD_6',
 			'bank_transfer_2' => 'METHOD_6',
-			'bank_transfer_3' =>  'METHOD_6' ,
-			'bank_transfer_3' =>  'METHOD_6'
+			'bank_transfer_3' =>  'METHOD_6',
+			//POS / e-POS
+			'stripe' => 'METHOD_7',
+			'vivawallet_native' => 'METHOD_7',
+			'vivacom_smart' => 'METHOD_7',
+			'paypal' => 'METHOD_7',
+			'ppcp-gateway' => 'METHOD_7',
+			'nbg_gp_gateway' => 'METHOD_7',
+			'piraeusbank_gateway' => 'METHOD_7',
+			'alphabank_gateway' => 'METHOD_7',
 		);
 
 		//This filter can be used to enrich payment method mapping
