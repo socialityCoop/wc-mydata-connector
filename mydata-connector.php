@@ -14,13 +14,13 @@
  *
  * @wordpress-plugin
  * Plugin Name:       MyData Connector for WooCommerce
- * Plugin URI:        https://sociality.gr/wc-mydata-connector
+ * Plugin URI:        https://github.com/socialityCoop/wc-mydata-connector
  * Description:       A plugin that integrates PDF Invoices & Packing Slips for WooCommerce with myData greek tax system
  * Version:           1.0.0
  * Author:            Sociality Coop
  * Author URI:        https://sociality.gr/
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       mydata-connector
  * Domain Path:       /languages
  * Requires Plugins: woocommerce-pdf-invoices-packing-slips
@@ -37,6 +37,11 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'MYDATA_CONNECTOR_VERSION', '1.0.0' );
+
+/**
+ * Main plugin file
+ */
+define( 'WC_MYDATA_CONNECTOR_FILE', __FILE__ );
 
 /**
  * This code adds composer depedentecies
@@ -69,6 +74,16 @@ register_deactivation_hook( __FILE__, 'deactivate_mydata_connector' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-mydata-connector.php';
+
+
+//Add plugin setting page in archive plugin view (Temporary position)
+function add_plugin_options_page_url($actions) {
+		$mylinks = array(
+		'<a href="'.admin_url('options-general.php?page=mydata-connector-admin').'">'.__('Settings','mydata-connector').'</a>');
+		$actions = array_merge( $actions, $mylinks );
+		return $actions;
+}
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_plugin_options_page_url');
 
 /**
  * Begins execution of the plugin.

@@ -1,114 +1,102 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: https://sociality.gr/
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+=== MyData Connector for WooCommerce ===
+Contributors: sociality
+Tags: woocommerce, mydata, receipts, pdf invoices, greece
+Requires at least: 5.8
+Tested up to: 6.9
+Requires PHP: 7.4
+Stable tag: 1.0.0
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Integrates PDF Invoices & Packing Slips for WooCommerce with the Greek AADE myDATA system for automatic retail receipt submission.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+**MyData Connector for WooCommerce** allows WooCommerce stores to automatically transmit retail receipts (B2C) 11_1 and 11_2 to the Greek AADE **myDATA** platform.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+The plugin works seamlessly with **PDF Invoices & Packing Slips for WooCommerce**, generating legally compliant receipts that include a **ΜΑΡΚ number** and **QR code**, exactly as required by Greek tax legislation.
 
-A few notes about the sections above:
+No third-party providers are required and no extra charges apply. Receipts are created inside WooCommerce and transmitted directly to AADE using the official myDATA API.
 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+⚠️ **Important:**  
+Only **retail receipts (B2C – 11_1 and 11_2)** are supported.  
+**Invoices (B2B)** cannot be transmitted, as AADE requires a certified third-party provider.
 
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
+The plugin is based on the PHP library **Invoice Maker** (https://docs.invoicemaker.gr/).
 
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+== Features ==
+
+* Automatic transmission of retail receipts to myDATA
+* No third-party API or service fees
+* Generates ΜΑΡΚ number and QR code
+* Uses WooCommerce orders as source of truth
+* Works on PDF Invoices & Packing Slips
+
+== Requirements ==
+
+* WooCommerce
+* PDF Invoices & Packing Slips for WooCommerce  
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+1. Download the plugin ZIP file.
+2. Upload it via **Plugins → Add New → Upload Plugin**.
+3. Activate **MyData Connector for WooCommerce**.
 
-e.g.
+== Configuration ==
 
-1. Upload `mydata-connector.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+=== MyData Connector Settings ===
+
+1. Go to **Settings → MyData Connector**
+2. Enter your **myDATA API username and API key**
+   * Username: your Taxisnet username
+   * API key: create one here  
+     https://www1.aade.gr/saadeapps2/bookkeeper-web/bookkeeper/#!/apiSubscription?mode=api  
+     (Choose **Subscribe to myDATA REST API**)
+3. Select receipt type: **ΑΛΠ** or **ΑΠΥ**
+4. Enable automatic transmission
+
+=== PDF Invoices & Packing Slips Settings ===
+
+1. Go to **WooCommerce → PDF Invoices**
+2. **General tab**
+   * Fill in store details
+   * Make sure the **VAT number** is correct
+3. **Documents tab**
+   * Enable your receipt document in PDF format
+   * Enable attachment on **Completed Order** to make sure you are already paid when transimitting a receipt.
+   * Enable invoice number and date display
+   * Add a **Prefix** (this is your receipt series and must be provided by your accountant)
+
+You are ready to go! Start sending receipt to myData by enabling transmission in the plugin's settings.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Does this plugin support invoices (B2B)? =
+No. AADE requires a certified third-party provider for B2B invoices.
 
-An answer to that question.
+= Are there any extra fees? =
+No. The plugin communicates directly with AADE without intermediaries.
 
-= What about foo bar? =
+= When are receipts sent to myDATA? =
+Receipts are transmitted after the order is marked as **Completed**, ensuring payment has been received.
 
-Answer to foo bar dilemma.
+== Extending the Plugin ==
 
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+The plugin includes several filters for customization.  
+All filters are located in `includes/class-mydata-connector-helpers.php`. Check **our GitHub Repo** (https://github.com/socialityCoop/wc-mydata-connector) for futher documentation.
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
+= 1.0.0 =
+* Initial release
 
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+== Support ==
 
-== Upgrade Notice ==
+Support and custom modifications are provided as a **paid service**.
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+Contact: **contact@sociality.gr**
 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+== Contribute ==
 
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+You are welcome to open issues or contribute via **our GitHub Repo** (https://github.com/socialityCoop/wc-mydata-connector).
