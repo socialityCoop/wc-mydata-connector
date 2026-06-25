@@ -77,13 +77,13 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-mydata-connector.php';
 
 
 //Add plugin setting page in archive plugin view (Temporary position)
-function add_plugin_options_page_url($actions) {
+function mydata_connector_options_page_url($actions) {
 		$mylinks = array(
 		'<a href="'.admin_url('options-general.php?page=mydata-connector-admin').'">'.__('Settings','mydata-connector').'</a>');
 		$actions = array_merge( $actions, $mylinks );
 		return $actions;
 }
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_plugin_options_page_url');
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'mydata_connector_options_page_url');
 
 /**
  * Begins execution of the plugin.
