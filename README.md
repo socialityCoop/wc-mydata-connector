@@ -23,6 +23,8 @@ You will need to configure myData Connector:
 2. Provide the username and the key for myDATA API. The username is the one used for Taxis. You can create a key [here](https://www1.aade.gr/saadeapps2/bookkeeper-web/bookkeeper/#!/apiSubscription?mode=api). Visit the page and choose "Subscribe to myDATA REST API".
 3. Choose the receipt type: ΑΛΠ or ΑΠΥ
 
+![MyData Connector Settings](https://github.com/socialityCoop/wc-mydata-connector/blob/main/screenshot.png)
+
 You will also need to configure the PDF Invoices &amp; Packing Slips for WooCommerce plugin:
 
 1. Go to Woocommerce > PDF Invoices
